@@ -1,3 +1,3 @@
-# TikTok Gif Conversion bot
+# TikTok Download Telegram Bot
 
-AWS Lambda function that handles telegram bot for conversion of TikTok video to gif. 
+AWS Lambda function that handles telegram bot for TikTok video download
