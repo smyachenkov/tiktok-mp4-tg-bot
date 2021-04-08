@@ -15,17 +15,20 @@ TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
 telegram_client = TelegramClient(token=TELEGRAM_TOKEN)
 
 
-def process_even(event):
-    message = json.loads(event['body'])
-    logging.info(message)
+def process_event(event):
+    body = json.loads(event['body'])
+    logging.info(body)
 
-    chat_id = message['message']['chat']['id']
+    if 'message' not in body:
+        logging.info("No message in update")
 
-    if 'text' not in message['message']:
+    chat_id = body['message']['chat']['id']
+
+    if 'text' not in body['message']:
         telegram_client.send_message(chat_id, "Please send valid TikTok url")
         return
 
-    text = message['message']['text']
+    text = body['message']['text']
 
     if text == "/start":
         telegram_client.send_message(chat_id, "Hi! Send me a TikTok link")
@@ -44,7 +47,7 @@ def process_even(event):
 
 
 def lambda_handler(event, context):
-    process_even(event)
+    process_event(event)
     return {
         'statusCode': 200
     }
