@@ -21,6 +21,7 @@ def process_event(event):
 
     if 'message' not in body:
         logging.info("No message in update")
+        return
 
     chat_id = body['message']['chat']['id']
 
